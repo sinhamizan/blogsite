@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Home Page
+{% endblock title %}
+
+{% block content %}
+	<div class="container">
+		<div class="row fh5co-post-entry">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 col-xxs-12 animate-box">
+				<div class="about_image">
+                    <img src="{% static 'images/person1.jpg' %}" alt="">
+                </div>
+			</div>
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-6 col-xxs-12 animate-box">
+				<div class="about_content">
+                    <h2>Mizanur Rahaman</h2>
+                    <strong>B.Sc in CSE(BUBT)</strong>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores eos fuga cupiditate, veritatis, a voluptatum harum eveniet unde optio mollitia repudiandae aut nihil voluptates amet rem repellendus doloremque similique laboriosam.</p>
+                </div>
+			</div>
+			<div class="clearfix visible-xs-block"></div>
+		</div>
+	</div>
+{% endblock content %}

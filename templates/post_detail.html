@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}
+Post Detail
+{% endblock title %}
+
+{% block content %}
+	<div class="container-fluid">
+		<div class="row fh5co-post-entry single-entry">
+			<article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+				<figure class="animate-box">
+					<img src="{{ post.image.url }}" alt="Image" class="img-responsive">
+				</figure>
+				<span class="fh5co-meta animate-box"><a href="{% url 'blog:post_category' name=post.category.name %}">{{ post.category }}</a></span>
+				<h2 class="fh5co-article-title animate-box">{{ post.title }}</h2>
+				<span class="fh5co-meta fh5co-date animate-box">{{ post.posted }}</span>
+				
+				<div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
+					<div class="row">
+						<div class="col-lg-12 cp-r animate-box">
+							<p>{{ post.description|safe }}</p>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+		<div class="row fh5co-post-entry">
+			<h2 style="text-align: center; padding-bottom: 60px;">Releted Posts</h2>
+			{% for post in releted_posts %}
+			<article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+				<figure>
+					<a href="{% url 'blog:post_detail' post.id %}"><img src="{{ post.image.url }}" alt="Image" class="img-responsive"></a>
+				</figure>
+				<span class="fh5co-meta"><a href="{% url 'blog:post_category' name=post.category.name %}">{{ post.category }}</a></span>
+				<h2 class="fh5co-article-title"><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+				<span class="fh5co-meta fh5co-date">{{ post.posted }}</span>
+			</article>
+			{% endfor %}
+			<div class="clearfix visible-xs-block"></div>
+		</div>
+		<div class="row fh5co-post-entry">
+			<div class="col-lg-6 col-lg-offset-3 col-md-6 col-sm-6 col-xs-12 col-xxs-12 animate-box">
+				{% for comment in comments %}
+				<h3>{{ comment.name }}</h3>
+				<h4>{{ comment.email }}</h4>
+				<p>{{ comment.comment }}</p>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="row fh5co-post-entry">
+			<div class="col-lg-6 col-lg-offset-3 col-md-6 col-sm-6 col-xs-12 col-xxs-12 animate-box">
+				<h3 style="padding-bottom: 30px;">Leave a Comment</h3>
+				{% if new_comment %}
+				<p>your comment is waiting for accepting!</p>
+				{% else %}
+				<div class="comment_area">
+					<form action="" method="POST">
+						{% csrf_token %}
+						{{ comment_form.as_p }}
+						<input type="submit" value="Comment">
+					</form>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	{% endblock content %}

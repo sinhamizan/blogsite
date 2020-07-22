@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register Page
+{% endblock title %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="show_message">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="alert alert-primary" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="profile_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="profile_img">
+					<img src="{{ user.profile_picture.url }}" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="profile_info">
+					<h2>Name: {{ user.first_name }} {{ user.last_name }}</h2>
+					<h3>Email: {{ user.email }}</h3>
+					{% if user.about_me %}
+					<p>{{ user.about_me }}</p>
+					{% else %}
+					<a href="">Write Something about yourself</a>
+					{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>    
+
+{% endblock content %}

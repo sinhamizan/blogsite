@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register Page
+{% endblock title %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div class="show_message">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="alert alert-primary" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="register_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="register_form">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="Register" class="btn btn-info">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>    
+
+{% endblock content %}
