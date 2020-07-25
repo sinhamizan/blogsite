@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, ContactMe, RegisterUser
+from .models import Comment, ContactMe, RegisterUser, Post
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -31,4 +31,14 @@ class registerForm(forms.ModelForm):
             'email',
             'username',
             'password',
+        ]
+
+class newPostForm(forms.ModelForm):
+    class Meta:
+        model=Post
+        fields = [
+            'title',
+            'category',
+            'image',
+            'description',
         ]

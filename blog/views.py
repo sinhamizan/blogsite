@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import Post_Catetory, Post, ContactMe, RegisterUser
 from django.db.models import Q 
-from .forms import CommentForm, ContactForm, registerForm
+from .forms import CommentForm, ContactForm, registerForm, newPostForm
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -142,8 +142,41 @@ def logout(request):
 
 def profile(request, name):
     user = RegisterUser.objects.get(username=name)
+    post = Post.objects.filter(author=user)
+
+    context = {
+        'user':user,
+        'post':post,
+        }
     template = 'profile.html'
-    return render(request, template, {'user':user,})
+    return render(request, template, context)
+
+
+def about_myself(request, name):
+    user = RegisterUser.objects.get(username=name)
+    if request.method == 'POST':
+        myself = request.POST['about_myself']
+        user.about_me = myself
+        user.save()
+        messages.success(request, 'Successfully Added YourSelf.')
+        return redirect('blog:user_profile', name=request.session.username)
+
+    template = 'about_me.html'
+    return render(request, template)
+
+
+def add_post(request):
+    user = get_object_or_404(RegisterUser, username=request.session['username'])
+    form = newPostForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form = form.save(commit=False)
+        form.author = user
+        form.save()
+        messages.success(request, 'Post Added Successfully.')
+        return redirect('blog:home')
+
+    template = 'add_post.html'
+    return render(request, template, {'form':form,})
 
 
 

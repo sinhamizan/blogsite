@@ -14,6 +14,7 @@ Home Page
 				</figure>
 				<span class="fh5co-meta"><a href="{% url 'blog:post_category' name=post.category.name %}">{{ post.category }}</a></span>
 				<h2 class="fh5co-article-title"><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+				<a href="{% url 'blog:post_detail' post.id %}" style="text-transform: capitalize;">{{ post.author.first_name }} {{ post.author.last_name }}</a>
 				<span class="fh5co-meta fh5co-date">{{ post.posted }}</span>
 			</article>
 			{% endfor %}

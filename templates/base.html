@@ -57,7 +57,7 @@
 					<li><a href="{% url 'blog:home' %}">Home</a></li>
 					{% if request.session.userid %}
 					<li><a href="{% url 'blog:user_profile' name=request.session.username %}">Profile</a></li>
-					<li><a href="{% url 'blog:user_profile' name=request.session.username %}">Add Post</a></li>
+					<li><a href="{% url 'blog:add_post' %}">Add New Post</a></li>
 					<li><a href="{% url 'blog:logout' %}">Logout</a></li>
 					{% else %}
 					<li><a href="{% url 'blog:login' %}">Login</a></li>
